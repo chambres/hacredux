@@ -26,9 +26,12 @@ $(document).ready(function(){
 						return Object.assign(res, { [key]: val })
 						}
 					}, {});
-		if (cookies.username !== "" && cookies.password !== "" && cookies.link !== ""){
-			window.location.href = "home.html" 
+		if (cookies.username !== undefined || cookies.password !== undefined || cookies.link !== undefined){
+			window.location.replace("home.html"); //go to there
+
 		}
+
+
 
 		if (cookies.error == "link_error"){
 			$("h3").text("Link Error! Make sure your link is in the simplest form.");
