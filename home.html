@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Loading...</title>
+  <link rel="stylesheet" href="./home_assets/style.css">
+  <link rel="stylesheet" href="./loading.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h1><span class="blue"></span>HAC<span class="blue"></span><span class="red">Redux</pan></h1>
+<h2> </h2>
+<div class="loading">
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+	<div></div>
+  </div>
+
+<script type="text/javascript">
+
+function clearcookies(){
+	document.cookie = "username=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
+	document.cookie = "password=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";			
+	document.cookie = "link=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
+	document.cookie = "rememberme=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";	
+}
+
+
+$(document).ready(function() { 
+	$('.main').hide();
+	cookies = document.cookie //parsing cookies into object
+			.split(';')
+			.reduce((res, c) => {
+				const [key, val] = c.trim().split('=').map(decodeURIComponent)
+				try {
+				return Object.assign(res, { [key]: JSON.parse(val) })
+				} catch (e) {
+				return Object.assign(res, { [key]: val })
+				}
+			}, {});
+
+	username = cookies.username; //assigning
+	password = cookies.password;
+	link = cookies.link;
+	rememberme = cookies.rememberme;
+
+
+
+	if (rememberme == false){ //deleting instantly if asked to
+		clearcookies();
+	}
+    const url=`https://hac-api.herokuapp.com/request?username=${username}&password=${password}&link=${link}`; //establishing link
+	//const url = `https://hac-api.herokuapp.com/request?username=k1331528&password=ktrs1301&link=homeaccess.katyisd.org`;
+
+	fetch(url)
+	.then(
+    function(response) {
+	
+    response.json().then(function(grades) {
+		console.log(grades);
+		console.log(typeof(grades));
+		if (grades == "error"){
+			clearcookies();
+			document.cookie = "error=error; expires=Wed, 1 Jan 2070 13:47:11 UTC;"
+			window.location.replace("index.html"); //get outta here
+			console.log("failed")
+		}
+		if (grades == "link_error"){
+			clearcookies();
+			document.cookie = "error=link_error; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
+			window.location.replace("index.html"); //get outta here
+			console.log('failed')
+		};
+		
+
+		a = ""
+		for(var classes in eval(grades)){
+			average = grades[classes]["average"]
+			if (average == undefined){
+				average = "None"
+			}
+			classeswithaverage = `${classes}:  ${average}`
+			a += `<table class="container">
+									<thead>
+										<tr>
+		<th style="color:#FF0000; font-size:1.5em; vertical-align: bottom">${classeswithaverage}</th>
+			<th><h1> </h1></th>
+								<th><h1>Your Score</h1></th>
+										<th><h1>Max Score</h1></th>
+											</tr>
+										</thead>
+		<tbody>`
+
+											
+			for (var assignments in grades[classes]){ //add a row
+
+				if (grades[classes][assignments]["title_of_assignment"] == undefined){continue;};
+				
+				a += `<tr>`
+				title = grades[classes][assignments]["title_of_assignment"]
+				type = grades[classes][assignments]["type_of_grade"]
+				score = grades[classes][assignments]["score"]
+				outof = grades[classes][assignments]["max_points"]
+
+				a += `<td> ${title} </td>`
+				a +=  `<td> ${type} </td>`
+				a += `<td> ${score} </td>`
+				a +=  `<td> ${outof} </td>`
+
+				a +=  `</tr>`
+			}
+
+			a += `</tbody>
+			</table>`;
+			
+
+		}
+
+		$( ".main" ).append(a);
+
+		});
+		$(".main").fadeIn(1000);
+		$(".loading").fadeOut(1000);
+		document.title = "HACRedux";
+		});
+
+});				
+	
+</script>
+
+
+
+
+<div class="main" id="main">
+	
+	
+
+</div>
+
+
+<!-- partial -->
+  <script  src="./home_assets/script.js"></script>
+
+</body>
+</html>
+
+
+
+<!-- 
+middle += "<td> " + duedate + " </td>\n"
+middle += "<td> " + dateassigned + " </td>\n" -->

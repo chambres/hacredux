@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>HACRedux Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="css/style.css">
+
+	</head>
+		
+	<script>
+$(document).ready(function(){  
+	window.onload = function() {
+			cookies = document.cookie //parsing cookies into object
+					.split(';')
+					.reduce((res, c) => {
+						const [key, val] = c.trim().split('=').map(decodeURIComponent)
+						try {
+						return Object.assign(res, { [key]: JSON.parse(val) })
+						} catch (e) {
+						return Object.assign(res, { [key]: val })
+						}
+					}, {});
+		if (cookies.username !== "" && cookies.password !== "" && cookies.link !== ""){
+			window.location.href = "home.html" 
+		}
+
+		if (cookies.error == "link_error"){
+			$("h3").text("Link Error! Make sure your link is in the simplest form.");
+			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
+			console.log("failed")
+			}
+			if (cookies.error == "error"){
+			$("h3").text("Error! Make sure your username and password are correct.");
+			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
+			console.log("failed")
+			}
+		}
+		});
+
+	
+			</script>
+
+	
+	
+	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">HACRedux</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center"></h3>
+		      	<form action="home.html" onsubmit="addcookies()" class="signin-form">
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="Username" id="username" required>
+		      		</div>
+	            <div class="form-group">
+	              <input id="password-field" type="password" class="form-control" placeholder="Password" required>
+	              <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+	            </div>
+				<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="HomeAccess Link" id="link" required>
+		      		</div>
+	            <div class="form-group">
+	            	<button type="submit" class="form-control btn btn-primary submit px-3" >Sign In</button>
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input id="remember" type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#" style="color: #fff">HAC link in simplest form: homeaccess.katyisd.org</a>
+								</div>
+	            </div>
+	          </form>
+	        
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+		<script>
+	function addcookies(){
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password-field").value;
+			var link = document.getElementById("link").value;
+			var mem = document.getElementById("remember").checked
+            
+            console.log(username, password, link, mem);
+			
+			document.cookie = "username=" + username + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
+			document.cookie = "password=" + password + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";			
+			document.cookie = "link=" + link + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
+			document.cookie = "rememberme=" + mem + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";	
+
+
+			//window.document="home.html"
+			}
+	</script>
+
+	<script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+
+	</body>
+</html>
+
