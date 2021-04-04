@@ -34,12 +34,12 @@ $(document).ready(function(){
 
 
 		if (cookies.error == "link_error"){
-			$("h3").text("Link Error! Make sure your link is in the simplest form.");
+			$("h3").text("Link Error.");
 			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 			console.log("failed")
 			}
 			if (cookies.error == "error"){
-			$("h3").text("Error! Make sure your username and password are correct.");
+			$("h3").text("Login Error.");
 			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 			console.log("failed")
 			}
@@ -51,7 +51,7 @@ $(document).ready(function(){
 
 	
 	
-	<body class="img js-fullheight" style="background-image: url(images/bg.jpg);">
+	<body class="img js-fullheight" style="background-image: url(images/bg.jpg); height: 100%;	overflow-y: hidden;">
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row justify-content-center">
