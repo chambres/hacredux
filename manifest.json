@@ -3,12 +3,12 @@
     "short_name": "HAC",
     "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#fdfdfd",
+    "background_color": "#2596be",
     "theme_color": "#2596be",
     "orientation": "portrait-primary",
     "icons": [
       {
-        "src": "icon.png",
+        "src": "./icon.png",
         "type": "image/png", "sizes": "512x512"
       }
     ]
