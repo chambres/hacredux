@@ -3,8 +3,8 @@
     "short_name": "HAC",
     "start_url": "index.html",
     "display": "standalone",
-    "background_color": "#2596be",
-    "theme_color": "#2596be",
+    "background_color": "#20243c",
+    "theme_color": "#20243c",
     "orientation": "portrait-primary",
     "icons": [
       {
