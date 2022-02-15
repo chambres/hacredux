@@ -1,0 +1,15 @@
+{
+    "name": "HACRedux",
+    "short_name": "HAC",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#fdfdfd",
+    "theme_color": "#2596be",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "icon.png",
+        "type": "image/png", "sizes": "512x512"
+      }
+    ]
+  }

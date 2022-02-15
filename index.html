@@ -6,6 +6,13 @@
   <link rel="stylesheet" href="./home_assets/style.css">
   <link rel="stylesheet" href="./loading.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+  <link rel="manifest" href="manifest.json" />
+	<!-- ios support -->
+	<link rel="apple-touch-icon" href="icon.png" />
+	<meta name="apple-mobile-web-app-status-bar" content="#2596be" />
+	<meta name="theme-color" content="#2596be" />
+
 </head>
 <body>
 
@@ -58,6 +65,15 @@
   </div>
 
 <script type="text/javascript">
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("service worker registered"))
+      .catch(err => console.log("service worker not registered", err))
+  })
+}
 
 function clearcookies(){
 	document.cookie = "username=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
