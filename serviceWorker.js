@@ -23,7 +23,16 @@ const assets = [
     "./js/main.js",
     "./js/popper.js",
     "./scss/style.scss",
-
+    "./splashscreens/iphone5_splash.png",
+	  "./splashscreens/iphone6_splash.png",
+	  "./splashscreens/iphoneplus_splash.png",
+	  "./splashscreens/iphonex_splash.png",
+	  "./splashscreens/iphonexr_splash.png",
+	  "./splashscreens/iphonexsmax_splash.png",
+	  "./splashscreens/ipad_splash.png" ,
+	  "./splashscreens/ipadpro1_splash.png" ,
+	  "./splashscreens/ipadpro3_splash.png" ,
+	  "./splashscreens/ipadpro2_splash.png",
 ]
 
 self.addEventListener("install", installEvent => {
