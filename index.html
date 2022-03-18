@@ -89,9 +89,9 @@ if ("serviceWorker" in navigator) {
 function clearcookies(){
 	document.cookie = "username=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 	document.cookie = "password=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";			
-	document.cookie = "link=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
+	//document.cookie = "link=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 	document.cookie = "rememberme=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";	
-	document.cookie = "error=expires=Wed, 1 Jan 1970 13:47:11 UTC;";
+	document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 }
 
 
@@ -108,18 +108,24 @@ $(document).ready(function() {
 				}
 			}, {});
 
+	if (cookies.username == '' || cookies.password == '' || cookies.link == ''){
+		window.location.replace("login.html"); //go to there
+		return;
+	}
+
 	username = cookies.username; //assigning
 	password = cookies.password;
 	link = cookies.link;
 	rememberme = cookies.rememberme;
 
+	
 
 
 	if (rememberme == false){ //deleting instantly if asked to
 		clearcookies();
 	}
     const url=`https://hac-api.herokuapp.com/request?username=${username}&password=${password}&link=${link}`; //establishing link
-	//const url = `https://hac-api.herokuapp.com/request?username=k1331528&password=ktrs1301&link=homeaccess.katyisd.org`;
+	//const url = `https://hac-api.herokuapp.com/request?username=USERNAME&password=PASSWORD&link=homeaccess.katyisd.org`;
 
 	fetch(url)
 	.then(
@@ -128,18 +134,13 @@ $(document).ready(function() {
     response.json().then(function(grades) {
 		console.log(grades);
 		console.log(typeof(grades));
-		if (grades == "error"){
+		if (grades == "password_error"){
 			clearcookies();
-			document.cookie = "error=error; expires=Wed, 1 Jan 2070 13:47:11 UTC;"
+			document.cookie = "error=password_error; expires=Wed, 1 Jan 2070 13:47:11 UTC;"
 			window.location.replace("login.html"); //get outta here
 			console.log("failed")
 		}
-		if (grades == "link_error"){
-			clearcookies();
-			document.cookie = "error=link_error; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
-			window.location.replace("login.html"); //get outta here
-			console.log('failed')
-		};
+		
 		
 
 		a = ""

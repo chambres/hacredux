@@ -25,3 +25,7 @@
 
 })(jQuery);
 
+$('#submit-button').submit(function () {
+	addcookies();
+	return false;
+});

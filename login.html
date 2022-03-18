@@ -26,10 +26,9 @@ $(document).ready(function(){
 						return Object.assign(res, { [key]: val })
 						}
 					}, {});
-		if (cookies.username !== undefined || cookies.password !== undefined || cookies.link !== undefined){
-			window.location.replace("index.html"); //go to there
-
-		}
+		// if (cookies.username !== undefined && cookies.password !== undefined && cookies.link !== undefined){
+		// 	window.location.replace("index.html"); //go to there
+		// }
 
 
 
@@ -38,13 +37,56 @@ $(document).ready(function(){
 			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 			console.log("failed")
 			}
-			if (cookies.error == "error"){
+			if (cookies.error == "password_error"){
 			$("h3").text("Login Error.");
 			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 			console.log("failed")
+			document.getElementById('link').value = cookies.link;
 			}
 		}
 		});
+
+
+		function addcookies(){
+
+				
+				//we're gonna check if the link is right
+				url = "https://hac-api.herokuapp.com/url_check"
+				const object = {url: document.getElementById("link").value};
+				
+				fetch(url, {
+					method: 'POST',
+						body: JSON.stringify(object),
+						headers: {
+						'Content-Type': 'application/json'
+						}
+				})
+				
+				.then(r => r.text()).then(result => {
+						if(result == 'false'){
+							document.cookie = "error=link_error; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
+							window.location.replace("login.html");
+						}
+						else{
+							var username = document.getElementById("username").value;
+							var password = document.getElementById("password-field").value;
+							var link = document.getElementById("link").value;
+							var mem = document.getElementById("remember").checked
+							
+							console.log(username, password, link, mem);
+							
+							document.cookie = "username=" + username + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
+							document.cookie = "password=" + password + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";			
+							document.cookie = "link=" + link + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
+							document.cookie = "rememberme=" + mem + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";	
+
+							
+							window.location.replace("index.html"); //go to there
+						}
+					});
+
+				}
+
 
 	
 	</script>
@@ -63,7 +105,7 @@ $(document).ready(function(){
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<h3 class="mb-4 text-center"></h3>
-		      	<form action="index.html" onsubmit="addcookies()" class="signin-form">
+		      	<form id="submit-button" class="signin-form">
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Username" id="username" required>
 		      		</div>
@@ -96,24 +138,7 @@ $(document).ready(function(){
 		</div>
 	</section>
 	
-		<script>
-	function addcookies(){
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password-field").value;
-			var link = document.getElementById("link").value;
-			var mem = document.getElementById("remember").checked
-            
-            console.log(username, password, link, mem);
-			
-			document.cookie = "username=" + username + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
-			document.cookie = "password=" + password + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";			
-			document.cookie = "link=" + link + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";
-			document.cookie = "rememberme=" + mem + "; expires=Wed, 1 Jan 2070 13:47:11 UTC;";	
-
-
-
-			}
-	</script>
+	
 
 	<script src="js/jquery.min.js"></script>
   <script src="js/popper.js"></script>
