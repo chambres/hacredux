@@ -37,12 +37,15 @@ $(document).ready(function(){
 			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 			console.log("failed")
 			}
-			if (cookies.error == "password_error"){
+		if (cookies.error == "password_error"){
 			$("h3").text("Login Error.");
 			document.cookie = "error=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 			console.log("failed")
 			document.getElementById('link').value = cookies.link;
-			}
+		}
+		else{
+			document.getElementById('link').value = cookies.link;
+		}
 		}
 		});
 

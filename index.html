@@ -86,6 +86,8 @@ if ("serviceWorker" in navigator) {
   })
 }
 
+
+
 function clearcookies(){
 	document.cookie = "username=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";
 	document.cookie = "password=; expires=Wed, 1 Jan 1970 13:47:11 UTC;";			
@@ -192,6 +194,12 @@ $(document).ready(function() {
 		$(".main").fadeIn(1000);
 		$(".loading").fadeOut(1000);
 		document.title = "HACRedux";
+		
+		
+		document.getElementsByClassName("red")[0].addEventListener('click', function() { //logout function
+    		clearcookies();
+    		window.location.replace("login.html")
+		}, false);
 		});
 
 });				
